@@ -8,6 +8,7 @@ use crate::{
 };
 
 /// A response for static files.
+#[cfg_attr(docsrs, doc(cfg(feature = "i18n")))]
 pub struct StaticFile(Result<Response, StaticFileError>);
 
 impl StaticFile {
