@@ -6,6 +6,7 @@ mod event_stream;
 mod json;
 mod plain_text;
 mod response;
+mod static_file;
 
 use std::str::FromStr;
 
@@ -14,7 +15,7 @@ use poem::{Request, RequestBody, Result};
 
 pub use self::{
     attachment::Attachment, binary::Binary, event_stream::EventStream, json::Json,
-    plain_text::PlainText, response::Response,
+    plain_text::PlainText, response::Response, static_file::StaticFile,
 };
 use crate::registry::{MetaSchemaRef, Registry};
 
