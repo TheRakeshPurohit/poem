@@ -14,7 +14,7 @@ use tokio::fs::File;
 use crate::{error::StaticFileError, Body, FromRequest, Request, RequestBody, Response, Result};
 
 /// An extractor for responding static files.
-pub struct StaticFile {
+pub struct StaticFileRequest {
     if_match: Option<IfMatch>,
     if_unmodified_since: Option<IfUnmodifiedSince>,
     if_none_match: Option<IfNoneMatch>,
@@ -22,7 +22,7 @@ pub struct StaticFile {
 }
 
 #[async_trait::async_trait]
-impl<'a> FromRequest<'a> for StaticFile {
+impl<'a> FromRequest<'a> for StaticFileRequest {
     async fn from_request(req: &'a Request, _body: &mut RequestBody) -> Result<Self> {
         Ok(Self {
             if_match: req.headers().typed_get::<IfMatch>(),
@@ -33,7 +33,7 @@ impl<'a> FromRequest<'a> for StaticFile {
     }
 }
 
-impl StaticFile {
+impl StaticFileRequest {
     /// Create static file response.
     ///
     /// `prefer_utf8` - Specifies whether text responses should signal a UTF-8
@@ -173,7 +173,9 @@ mod tests {
     }
 
     async fn check_response(req: Request) -> Response {
-        let static_file = StaticFile::from_request_without_body(&req).await.unwrap();
+        let static_file = StaticFileRequest::from_request_without_body(&req)
+            .await
+            .unwrap();
         static_file
             .create_response(Path::new("Cargo.toml"), false)
             .unwrap()

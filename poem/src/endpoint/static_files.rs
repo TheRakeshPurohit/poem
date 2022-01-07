@@ -6,7 +6,7 @@ use std::{
 use crate::{
     error::StaticFileError,
     http::{header, Method},
-    web::StaticFile,
+    web::StaticFileRequest,
     Body, Endpoint, FromRequest, Request, Response, Result,
 };
 
@@ -173,14 +173,14 @@ impl Endpoint for StaticFilesEndpoint {
         }
 
         if file_path.is_file() {
-            return Ok(StaticFile::from_request_without_body(&req)
+            return Ok(StaticFileRequest::from_request_without_body(&req)
                 .await?
                 .create_response(&file_path, self.prefer_utf8)?);
         } else {
             if let Some(index_file) = &self.index_file {
                 let index_path = file_path.join(index_file);
                 if index_path.is_file() {
-                    return Ok(StaticFile::from_request_without_body(&req)
+                    return Ok(StaticFileRequest::from_request_without_body(&req)
                         .await?
                         .create_response(&index_path, self.prefer_utf8)?);
                 }
@@ -265,7 +265,7 @@ impl Endpoint for StaticFileEndpoint {
     type Output = Response;
 
     async fn call(&self, req: Request) -> Result<Self::Output> {
-        Ok(StaticFile::from_request_without_body(&req)
+        Ok(StaticFileRequest::from_request_without_body(&req)
             .await?
             .create_response(&self.path, self.prefer_utf8)?)
     }

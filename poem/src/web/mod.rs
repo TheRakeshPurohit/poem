@@ -48,7 +48,7 @@ pub(crate) use path::PathDeserializer;
 pub use query::Query;
 pub use redirect::Redirect;
 #[cfg(feature = "static-files")]
-pub use static_file::StaticFile;
+pub use static_file::StaticFileRequest;
 pub use typed_header::TypedHeader;
 
 #[cfg(feature = "tempfile")]

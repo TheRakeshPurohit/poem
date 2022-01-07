@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Rename `poem::endpoint::StaticFiles` to `poem::endpoint::StaticFilesEndpoint`.
 - Rename `poem::endpoint::StaticFile` to `poem::endpoint::StaticFileEndpoint`.
-- Add `poem::web::StaticFile` extractor.
+- Add `poem::web::StaticFileRequest` extractor.
 
 # [1.2.26] 2022-1-6
 
